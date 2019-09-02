@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/DnSItems', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/DnSUsers', { useNewUrlParser: true });
 const db = mongoose.connection;
 
 db.on('error', function () {
@@ -13,7 +13,8 @@ db.once('open', function () {
   console.log('____________________________')
 });
 
-let itemsSchema = new mongoose.Schema({
+
+let usersSchema = new mongoose.Schema({
   // _id: String,
   firstName: String,
   lasttName: String,
@@ -22,15 +23,17 @@ let itemsSchema = new mongoose.Schema({
   email: String,
   birthday: Date,
   password: String,
+  isLogin: Boolean,
   dateOfSignUp: { type: Date, default: Date.now },
   items: Array
 });
 
-let Items = mongoose.model('items', itemsSchema);
+let Users = mongoose.model('Users', usersSchema);
+
 
 // Example function
 let readRepos = (cb) => {
-  Items.find({}, (err, data) => {
+  Users.find({}, (err, data) => {
     if (err) {
       cb(err)
     } else {
@@ -42,7 +45,7 @@ let readRepos = (cb) => {
 
 let creatRepo = (cb) => {
   // console.log("creatRepo in DB req", newRepo);
-  Items.create(temp, (err, data) => {
+  Users.create(temp, (err, data) => {
     if (err) {
       cb(err)
     } else {
@@ -61,6 +64,7 @@ let temp = [{
   birthday: "2019-09-01T17:06:32.227Z",
   password: "Ab123456",
   dateOfSignUp: "2019-09-01T17:06:32.227Z",
+  isLogin: false,
   items: [{
     itemName: "danadsf fdfdgf ",
     itemDescription: "new book",
@@ -81,8 +85,19 @@ let temp = [{
   birthday: "2019-09-01T17:06:32.227Z",
   password: "Aaaaaaa6",
   dateOfSignUp: "2019-09-01T17:06:32.227Z",
+  isLogin: false,
   items: [{
     itemName: "batata",
+    itemDescription: "akel",
+    category: "food",
+    type: "limit time",
+    phone: 702552221,
+    location: "zarqa",
+    locationDescription: "rosaifa",
+    isAvalible: true,
+    image: ""
+  }, {
+    itemName: "book",
     itemDescription: "new book",
     category: "books",
     type: "limit time",

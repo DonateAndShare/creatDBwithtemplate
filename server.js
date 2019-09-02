@@ -13,7 +13,6 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   console.log('post---------------------');
   // console.log('req.body from post in server', req.body);
-  let togPrivate = req.body
   mongo.creatRepo((result) => {
     res.json(result);
   })
